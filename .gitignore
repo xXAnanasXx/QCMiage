@@ -26,3 +26,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Angular
+e/.angular/cache/
+
+# NestJS
+backend/.nestjs/
