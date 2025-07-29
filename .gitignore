@@ -28,7 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Angular
-e/.angular/cache/
+frontend/.angular/cache/
 
 # NestJS
 backend/.nestjs/
