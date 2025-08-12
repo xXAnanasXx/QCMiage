@@ -32,3 +32,6 @@ frontend/.angular/cache/
 
 # NestJS
 backend/.nestjs/
+
+# Webstorm
+.idea/
