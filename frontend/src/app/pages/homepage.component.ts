@@ -1,0 +1,29 @@
+import {Component, signal, OnInit} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {ApiService} from './homepage.service';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './homepage.html',
+  styleUrl: './homepage.css'
+})
+export class HomepageComponent implements OnInit {
+  message = signal<string>('Chargement...');
+
+  constructor(private api: ApiService) {
+  }
+
+  ngOnInit() {
+    this.api.getProfile().subscribe({
+      next: response => {
+        this.message.set(response.name);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération du profil:', error);
+        this.message.set('Erreur API');
+      }
+    });
+  }
+}
