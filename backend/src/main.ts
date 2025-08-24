@@ -11,7 +11,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   // Servir les fichiers Angular
-  app.use(express.static(join(__dirname, '..', 'public')));
   app.use(express.static(join(__dirname, '..', 'public', 'browser')));
 
   // // Pour toutes les routes non-API, renvoyer index.html

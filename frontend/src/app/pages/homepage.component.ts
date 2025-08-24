@@ -1,13 +1,10 @@
 import {Component, signal, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
 import {ApiService} from './homepage.service';
-import {NavbarComponent} from '../common/navbar/navbar.component';
-import {FooterComponent} from '../common/footer/footer.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css'
 })
