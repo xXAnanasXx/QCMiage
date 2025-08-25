@@ -1,1 +1,61 @@
-dqsdsqdqsdsqd
+<div class="qcm-container">
+
+    <a [routerLink]="['/']" class="back-link">← Retour/Annuler </a>
+  <h1>Créateur de QCM</h1>
+
+  <div class="qcm-header">
+    <input type="text" placeholder="Titre du QCM" [(ngModel)]="titreQcm" class="qcm-input" />
+    <textarea placeholder="Description du QCM" [(ngModel)]="descriptionQcm" class="qcm-input"></textarea>
+
+    <label>Groupes assignés :</label>
+    <select multiple (change)="onGroupChange($event)" class="qcm-input">
+      <option *ngFor="let groupe of groupesDisponibles" [value]="groupe">{{ groupe }}</option>
+    </select>
+
+    <label class="negatif-label">
+      <input type="checkbox" [(ngModel)]="pointsNegatifs" />
+      QCM à points négatifs
+    </label>
+  </div>
+
+  <div class="qcm-questions">
+    <div class="qcm-question" *ngFor="let question of questions; let i = index; trackBy: trackByIndex">
+      <button class="remove-btn" (click)="removeQuestion(i)">✖</button>
+
+      <div class="question-header">
+        <input type="text" placeholder="Texte de la question" [(ngModel)]="question.text" class="qcm-input question-text" />
+
+        <div class="bareme-container">
+          <label class="bareme-label">Barème :</label>
+          <input type="number" min="1" [(ngModel)]="question.bareme" class="bareme-input" />
+        </div>
+
+        <select [(ngModel)]="question.type" class="qcm-input type-select">
+          <option value="radio">Choix unique</option>
+          <option value="multiple">Choix multiple</option>
+          <option value="libre">Libre</option>
+        </select>
+      </div>
+
+      <div class="options" *ngIf="isChoiceQuestion(question)">
+        <div class="option" *ngFor="let opt of question.options; let j = index; trackBy: trackByOption">
+          <input type="text" placeholder="Option de réponse" [(ngModel)]="opt.value" class="qcm-input" />
+
+          <label class="correct-label">
+            <input type="checkbox" [checked]="opt.isCorrect" (change)="checkOption(question, j)" />
+            Correct
+          </label>
+
+          <button class="remove-btn" *ngIf="question.options.length > 1" (click)="removeOption(question, j)">✖</button>
+        </div>
+        <button class="add-option-btn" (click)="addOption(question)">+ Option</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="add-question-btn" (click)="addQuestion()">＋</button>
+
+  <div class="save-container">
+    <button class="save-btn" (click)="sauvegarderQCM()"> Sauvegarder</button>
+  </div>
+</div>

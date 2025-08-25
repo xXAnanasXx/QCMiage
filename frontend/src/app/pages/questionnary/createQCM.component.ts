@@ -1,61 +1,101 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+
+interface Option {
+  value: string;
+  isCorrect: boolean;
+}
+
+interface Question {
+  type: 'radio' | 'libre' | 'multiple';
+  text: string;
+  bareme: number;
+  options: Option[];
+}
 
 @Component({
-    selector: 'app-create-qcm',
-    templateUrl: './createQCM.html',
-    styleUrls: []
+  selector: 'app-create-qcm',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
+  templateUrl: './createQCM.html',
+  styleUrls: ['./createQCM.css']
 })
 
 
 
-
 export class CreateQCMComponent {
-    // qcmForm: FormGroup;
+  titreQcm = '';
+  descriptionQcm = '';
+  questions: Question[] = [];
 
-    // constructor(private fb: FormBuilder) {
-    //     this.qcmForm = this.fb.group({
-    //         title: ['', Validators.required],
-    //         description: [''],
-    //         questions: this.fb.array([])
-    //     });
-    // }
+  // ✅ Nouveau : liste des groupes et sélection
+  groupesDisponibles = ['Groupe A', 'Groupe B', 'Groupe C'];
+  groupesAssignes: string[] = [];
 
-    // get questions(): FormArray {
-    //     return this.qcmForm.get('questions') as FormArray;
-    // }
+  // ✅ Nouveau : points négatifs (activé par défaut)
+  pointsNegatifs = true;
 
-    // addQuestion() {
-    //     const question = this.fb.group({
-    //         text: ['', Validators.required],
-    //         options: this.fb.array([
-    //             this.fb.control('', Validators.required)
-    //         ]),
-    //         correctAnswer: [0, Validators.required]
-    //     });
-    //     this.questions.push(question);
-    // }
+  onGroupChange(event: Event) {
+  const select = event.target as HTMLSelectElement;
+  this.groupesAssignes = Array.from(select.selectedOptions).map(opt => opt.value);
+}
+  addQuestion() {
+    this.questions.push({
+      type: 'radio',
+      text: '',
+      bareme: 1,
+      options: [{ value: '', isCorrect: false }]
+    });
+  }
 
-    // addOption(questionIndex: number) {
-    //     const options = (this.questions.at(questionIndex).get('options') as FormArray);
-    //     options.push(this.fb.control('', Validators.required));
-    // }
+  removeQuestion(index: number) {
+    this.questions.splice(index, 1);
+  }
 
-    // removeOption(questionIndex: number, optionIndex: number) {
-    //     const options = (this.questions.at(questionIndex).get('options') as FormArray);
-    //     if (options.length > 1) {
-    //         options.removeAt(optionIndex);
-    //     }
-    // }
+  addOption(question: Question) {
+    question.options.push({ value: '', isCorrect: false });
+  }
 
-    // removeQuestion(index: number) {
-    //     this.questions.removeAt(index);
-    // }
+  removeOption(question: Question, index: number) {
+    if (question.options.length > 1) {
+      question.options.splice(index, 1);
+    }
+  }
 
-    // submit() {
-    //     if (this.qcmForm.valid) {
-    //         // Handle form submission, e.g., send to API
-    //         console.log(this.qcmForm.value);
-    //     }
-    // }
+  trackByIndex(index: number) {
+    return index;
+  }
+
+  trackByOption(index: number, item: Option) {
+    return index;
+  }
+
+  isChoiceQuestion(question: Question) {
+    return question.type === 'radio' || question.type === 'multiple';
+  }
+
+  checkOption(question: Question, index: number) {
+    if (question.type === 'radio') {
+      question.options.forEach((opt, i) => {
+        opt.isCorrect = i === index;
+      });
+    } else {
+      question.options[index].isCorrect = !question.options[index].isCorrect;
+    }
+  }
+
+  sauvegarderQCM() {
+    const qcm = {
+      titre: this.titreQcm,
+      description: this.descriptionQcm,
+      groupes: this.groupesAssignes, // ✅ on sauvegarde les groupes
+      pointsNegatifs: this.pointsNegatifs, // ✅ on sauvegarde le choix
+      questions: this.questions
+    };
+    console.log('QCM sauvegardé :', qcm);
+    alert('QCM sauvegardé ! Vérifie la console pour voir les données.');
+  }
 }

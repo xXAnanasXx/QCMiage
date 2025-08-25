@@ -1,20 +1,18 @@
-import {Component, signal, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {ApiService} from './homepage.service';
-
+import { Component, signal, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ApiService } from './homepage.service';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],  // Important pour routerLink
   templateUrl: './homepage.html',
-  styleUrl: './homepage.css'
+  styleUrls: ['./homepage.css']
 })
 export class HomepageComponent implements OnInit {
   message = signal<string>('Chargement...');
 
-  constructor(private api: ApiService) {
-  }
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
     this.api.getProfile().subscribe({
