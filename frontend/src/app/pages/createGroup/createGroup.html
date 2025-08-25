@@ -7,7 +7,7 @@
 
   <div class="groups">
     <div *ngFor="let group of groups; let i = index" class="group-card">
-      <input [(ngModel)]="group.name" placeholder="Nom du groupe" class="group-name-input" />
+      <input [(ngModel)]="group.classe.nom" placeholder="Nom du groupe" class="group-name-input" />
 
       <button class="remove-group-btn" (click)="removeGroup(i)">Supprimer le groupe</button>
 
@@ -19,7 +19,7 @@
 
       <!-- Datalist unique pour chaque groupe -->
       <datalist [id]="'studentsList' + i">
-        <option *ngFor="let s of getFilteredStudents(group)" [value]="s"></option>
+        <option *ngFor="let eleve of getFilteredStudents(group.classe)" [value]="eleve.prenom + ' ' + eleve.nom"></option>
       </datalist>
 
       <button (click)="addToGroup(group)">Ajouter</button>
@@ -28,11 +28,14 @@
       <div class="error" *ngIf="group.errorMessage">{{ group.errorMessage }}</div>
 
       <ul>
-        <li *ngFor="let student of group.members">
-          {{ student }}
-          <button (click)="removeFromGroup(group, student)">Supprimer</button>
+        <li *ngFor="let eleve of group.classe.eleves ? group.classe.eleves : []">
+          {{ eleve.nom }}
+          <button (click)="removeFromGroup(group.classe, eleve)">Supprimer</button>
         </li>
       </ul>
+    </div>
+    <div class="save-container">
+      <button class="save-btn" (click)="saveAndGoBack()">💾 Sauvegarder</button>
     </div>
   </div>
 </div>

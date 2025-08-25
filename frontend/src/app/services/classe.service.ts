@@ -29,4 +29,12 @@ export class ClasseService {
   getAllClasses(): Observable<Classe[]> {
     return this.http.get<Classe[]>(`${this.apiUrl}/classe/all`);
   }
+
+  addStudentToClass(classId: number, studentId: number): Observable<Classe> {
+    return this.http.post<Classe>(`${this.apiUrl}/classe/${classId}/eleve/${studentId}`, {});
+  }
+
+  removeStudentFromClass(classId: number, studentId: number): Observable<Classe> {
+    return this.http.delete<Classe>(`${this.apiUrl}/classe/${classId}/eleve/${studentId}`);
+  }
 }
