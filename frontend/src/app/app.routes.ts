@@ -3,6 +3,7 @@ import { HomepageComponent } from './pages/homepage.component';
 import { AuthComponent } from './authentification/auth.component';
 import { CreateQCMComponent } from './pages/questionnary/createQCM.component';
 import { CreateGroupComponent } from './pages/createGroup/createGroup.component';
+import { doQCM } from './pages/doQCM/doQCM.component';
 
 
 
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent, pathMatch: 'full' },
   { path: 'createQCM', component: CreateQCMComponent, pathMatch: 'full' },
   { path: 'createGroup', component: CreateGroupComponent, pathMatch: 'full' },
+  { path: 'doQCM', component: doQCM, pathMatch: 'full' },
 ];

@@ -1,7 +1,4 @@
 
-
-
-
 .header {
   width: 100%;
   text-align: center;
@@ -11,42 +8,41 @@
 
 
 .content {
-
   display: flex;
+  flex-direction: column; 
   justify-content: center;
   align-items: center;
-  min-height: 70vh; 
+  min-height: 70vh;
+  gap: 20px;
 }
 
 .content img {
-  display: flex;
   max-width: 300px;
   height: auto;
-  margin: 0 20px 30px 20px;
+  margin-bottom: 20px;
 }
+
 
 .login-section {
   background: #fff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 5px 10px 30px rgba(0, 0, 0,0.5);
+  box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.5);
   text-align: center;
   width: 320px;
+  box-sizing: border-box;
 }
-
 
 .login-section h2 {
   margin-bottom: 20px;
   color: #333;
 }
 
-
 form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
 
 label {
   text-align: left;
@@ -55,6 +51,7 @@ label {
 }
 
 input {
+  width: 100%;          
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -77,8 +74,29 @@ button {
   transition: background 0.3s;
 }
 
-
-
 button:hover {
   background: #0056b3;
+}
+
+.signup-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-link a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
 }

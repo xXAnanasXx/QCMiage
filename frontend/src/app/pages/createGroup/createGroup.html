@@ -1,15 +1,14 @@
 <div class="container">
-    <a [routerLink]="['/']" class="back-link">← Retour/Annuler </a>
+<a [routerLink]="['/']" class="back-link">← Retour/Annuler </a>
+  <h1>Gestion des Classes</h1>
 
-
-  <h1>Gestion des Groupes</h1>
-  <button class="add-group-btn" (click)="addGroup()">+ Ajouter un groupe</button>
+  <button class="add-group-btn" (click)="addGroup()">+ Ajouter une classe</button>
 
   <div class="groups">
     <div *ngFor="let group of groups; let i = index" class="group-card">
-      <input [(ngModel)]="group.name" placeholder="Nom du groupe" class="group-name-input" />
+      <input [(ngModel)]="group.name" placeholder="Nom de la classe" class="group-name-input" />
 
-      <button class="remove-group-btn" (click)="removeGroup(i)">Supprimer le groupe</button>
+      <button class="remove-group-btn" (click)="removeGroup(i)">Supprimer la classe</button>
 
       <!-- Autocomplete pour ajouter un membre -->
       <input [(ngModel)]="group.searchText"
@@ -17,7 +16,7 @@
              [attr.list]="'studentsList' + i"
              (input)="group.errorMessage=''"/>
 
-      <!-- Datalist unique pour chaque groupe -->
+      <!-- Datalist unique pour chaque classe -->
       <datalist [id]="'studentsList' + i">
         <option *ngFor="let s of getFilteredStudents(group)" [value]="s"></option>
       </datalist>
@@ -35,4 +34,8 @@
       </ul>
     </div>
   </div>
+<div class="save-container">
+  <button class="save-btn" (click)="saveAndGoBack()">Sauvegarder</button>
+</div>
+
 </div>

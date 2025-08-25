@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router'; 
 
 interface Group {
   name: string;
@@ -30,8 +30,10 @@ export class CreateGroupComponent {
   ];
 
   groups: Group[] = [
-    { name: 'Groupe 1', members: [], searchText: '', errorMessage: '' }
+    { name: 'Classe 1', members: [], searchText: '', errorMessage: '' }
   ];
+
+  constructor(private router: Router) {} 
 
   getFilteredStudents(group: Group): string[] {
     return this.allStudents.filter((s: string) =>
@@ -70,10 +72,15 @@ export class CreateGroupComponent {
 
   addGroup(): void {
     const newIndex = this.groups.length + 1;
-    this.groups.push({ name: `Groupe ${newIndex}`, members: [], searchText: '', errorMessage: '' });
+    this.groups.push({ name: `Classe ${newIndex}`, members: [], searchText: '', errorMessage: '' });
   }
 
   removeGroup(index: number): void {
     this.groups.splice(index, 1);
+  }
+
+  saveAndGoBack(): void {
+
+    this.router.navigate(['/']);
   }
 }
