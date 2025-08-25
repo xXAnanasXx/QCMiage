@@ -1,17 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from 'typeorm';
 import { Question } from './question.entity';
 
-@Entity()
+@Entity('choixquestion')
 export class ChoixQuestion {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_choixquestion: number;
 
   @Column({ type: 'text' })
   contenu: string;
 
   @Column()
-  estCorrecte: boolean;
+  estcorrecte: boolean;
 
-  @ManyToOne(() => Question, (question) => question.choixQuestions)
-  question: Question;
+  @ManyToOne(() => Question, (question) => question.choixquestions)
+  @JoinColumn({ name: 'id_question' })
+  id_question: Question;
 }

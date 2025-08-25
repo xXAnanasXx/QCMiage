@@ -4,7 +4,7 @@ import { Classe } from './classe.entity';
 @Entity()
 export class Promotion {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_promotion: number;
 
   @Column({ length: 100 })
   nom: string;
@@ -12,6 +12,6 @@ export class Promotion {
   @Column()
   annee: number;
 
-  @OneToMany(() => Classe, (classe) => classe.promotion)
+  @OneToMany(() => Classe, (classe) => classe.id_promotion)
   classes: Classe[];
 }

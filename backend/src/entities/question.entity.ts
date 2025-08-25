@@ -1,14 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
 import { Questionnaire } from './questionnaire.entity';
 import { ChoixQuestion } from './choix-question.entity';
 
 @Entity()
 export class Question {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_question: number;
 
   @Column({ length: 20 })
-  typeQuestion: string;
+  typequestion: string;
 
   @Column({ type: 'text' })
   contenu: string;
@@ -23,8 +23,9 @@ export class Question {
   feedback: string;
 
   @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions)
-  questionnaire: Questionnaire;
+  @JoinColumn({ name: 'id_questionnaire' })
+  id_questionnaire: Questionnaire;
 
-  @OneToMany(() => ChoixQuestion, (choix) => choix.question)
-  choixQuestions: ChoixQuestion[];
+  @OneToMany(() => ChoixQuestion, (choix) => choix.id_question, { cascade: true })
+  choixquestions: ChoixQuestion[];
 }

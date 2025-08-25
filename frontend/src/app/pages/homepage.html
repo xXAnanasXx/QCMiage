@@ -1,18 +1,18 @@
 <main class="main">
   <div class="header">
-    <h1>QCMiage, {{ message() }}</h1>
+    <h1>{{ profile().nom }}: QCMiage, {{ message() }}</h1>
   </div>
   <div class="content">
     <div class="left-side">
 
 
-    <img src="assets/MIAGE_LOGO.png" alt="Logo QCMiage">
+    <img src="assets/MIAGE_LOGO2.png" alt="Logo QCMiage">
       <section class="login-section">
-        
+
         <h2>Connexion</h2>
         <form>
           <div>
-            
+
             <label for="username">Nom d'utilisateur</label>
             <input type="text" id="username" name="username" required>
           </div>
@@ -26,4 +26,3 @@
     </div>
   </div>
 </main>
-<router-outlet/>

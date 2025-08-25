@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Classe } from './classe.entity';
 
 @Entity()
 export class Utilisateur {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_utilisateur: number;
 
   @Column({ length: 255 })
   mdp: string;
@@ -21,6 +21,7 @@ export class Utilisateur {
   @Column({ length: 20 })
   role: string;
 
-  @ManyToOne(() => Classe, (classe) => classe.utilisateurs)
-  classe: Classe;
+  @ManyToOne(() => Classe, (classe) => classe.eleves)
+  @JoinColumn({ name: 'id_classe' })
+  id_classe: Classe;
 }

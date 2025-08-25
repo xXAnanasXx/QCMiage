@@ -4,7 +4,7 @@ import { Question } from './question.entity';
 @Entity()
 export class Questionnaire {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_questionnaire: number;
 
   @Column({ length: 200 })
   titre: string;
@@ -15,6 +15,6 @@ export class Questionnaire {
   @Column({ nullable: true })
   duree: number;
 
-  @OneToMany(() => Question, (question) => question.questionnaire)
+  @OneToMany(() => Question, (question) => question.id_questionnaire, { cascade: true })
   questions: Question[];
 }
