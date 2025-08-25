@@ -1,28 +1,62 @@
-<main class="main">
-  <div class="header">
-    <h1>{{ profile().nom }}: QCMiage, {{ message() }}</h1>
+<body>
+
+  <div class="profile">
+    <img src="assets/photo_etudiant.png" alt="Photo de profil">
+    <h2>Nom Profil</h2>
+    <p>Description courte</p>
   </div>
-  <div class="content">
-    <div class="left-side">
 
 
-    <img src="assets/MIAGE_LOGO2.png" alt="Logo QCMiage">
-      <section class="login-section">
+  <div class="repositories">
+    <div class="repo-list">
+      <a href="#" class="repo">
+        <h4>Modifier mon profil</h4>
+        <p>HTML</p>
+      </a>
+      <a href="#" class="repo">
+        <h4>Cree un QCM</h4>
+        <p>JavaScript</p>
+      </a>
+      <a href="#" class="repo">
+        <h4>ecom</h4>
+        <p>TP Application web</p>
+      </a>
+      <a href="#" class="repo">
+        <h4>TP-ecom</h4>
+        <p>TP Application web 1</p>
+      </a>
+    </div>
 
-        <h2>Connexion</h2>
-        <form>
-          <div>
-
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" required>
+    <div class="qcm-section">
+      <hr>
+      <h1>Mes QCMs :</h1>
+      <div class="qcm-list">
+        <div class="qcm-list">
+          <div class="qcm-item">
+            <div class="qcm-info">
+              <h4>QCM 1</h4>
+              <p>Chapitre 1 - HTML</p>
+            </div>
+            <div class="qcm-scores">
+              <span class="score-eleve">Élève : 15/20</span>
+              <span class="score-moyenne">Moyenne: 13/20</span>
+            </div>
+            <button class="qcm-btn">Effectuer</button>
           </div>
-          <div>
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required>
+
+          <div class="qcm-item">
+            <div class="qcm-info">
+              <h4>QCM 2</h4>
+              <p>Chapitre 2 - CSS</p>
+            </div>
+            <div class="qcm-scores">
+              <span class="score-eleve">Élève : 12/20</span>
+              <span class="score-moyenne">Moyenne : 14/20</span>
+            </div>
+            <button class="qcm-btn">Effectuer</button>
           </div>
-          <button type="submit">Se connecter</button>
-        </form>
-      </section>
+        </div>
+      </div>
     </div>
   </div>
-</main>
+</body>
