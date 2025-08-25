@@ -1,0 +1,38 @@
+<div class="container">
+    <a [routerLink]="['/']" class="back-link">← Retour/Annuler </a>
+
+
+  <h1>Gestion des Groupes</h1>
+  <button class="add-group-btn" (click)="addGroup()">+ Ajouter un groupe</button>
+
+  <div class="groups">
+    <div *ngFor="let group of groups; let i = index" class="group-card">
+      <input [(ngModel)]="group.name" placeholder="Nom du groupe" class="group-name-input" />
+
+      <button class="remove-group-btn" (click)="removeGroup(i)">Supprimer le groupe</button>
+
+      <!-- Autocomplete pour ajouter un membre -->
+      <input [(ngModel)]="group.searchText"
+             placeholder="Ajouter un élève"
+             [attr.list]="'studentsList' + i"
+             (input)="group.errorMessage=''"/>
+
+      <!-- Datalist unique pour chaque groupe -->
+      <datalist [id]="'studentsList' + i">
+        <option *ngFor="let s of getFilteredStudents(group)" [value]="s"></option>
+      </datalist>
+
+      <button (click)="addToGroup(group)">Ajouter</button>
+
+      <!-- Message d'erreur -->
+      <div class="error" *ngIf="group.errorMessage">{{ group.errorMessage }}</div>
+
+      <ul>
+        <li *ngFor="let student of group.members">
+          {{ student }}
+          <button (click)="removeFromGroup(group, student)">Supprimer</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

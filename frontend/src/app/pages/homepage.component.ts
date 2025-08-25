@@ -3,11 +3,12 @@ import {HomepageService} from './homepage.service';
 import {UtilisateurService} from '../services/utilisateur.service';
 import {ClasseService} from '../services/classe.service';
 import {Utilisateur} from '../common/models/utilisateur.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [RouterModule],  // Important pour routerLink
+  imports: [RouterModule], 
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css']
 })
