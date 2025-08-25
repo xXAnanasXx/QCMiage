@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import { QuestionService } from '../services/question.service';
 import { QuestionDto } from '../dto/question.dto';
 
@@ -14,5 +14,20 @@ export class QuestionController {
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<QuestionDto> {
         return this.questionService.findOne(id);
+    }
+
+    @Post()
+    async create(@Body() questionDto: QuestionDto): Promise<void> {
+        await this.questionService.create(questionDto);
+    }
+
+    @Put(':id')
+    async update(@Param('id') id: number, @Body() questionDto: QuestionDto): Promise<void> {
+        await this.questionService.update(id, questionDto);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: number): Promise<void> {
+        await this.questionService.delete(id);
     }
 }

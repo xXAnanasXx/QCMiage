@@ -22,6 +22,30 @@ export class PromotionService {
         return this.promotionEntityToDto(promotion);
     }
 
+    async create(promotionDto: PromotionDto): Promise<PromotionDto> {
+        const promotion = this.promotionRepository.create(promotionDto);
+        await this.promotionRepository.save(promotion);
+        return this.promotionEntityToDto(promotion);
+    }
+
+    async update(id: number, promotionDto: PromotionDto): Promise<PromotionDto> {
+        const promotion = await this.promotionRepository.findOneBy({id_promotion: id});
+        if (!promotion) {
+            throw new Error('Promotion non trouvée');
+        }
+        Object.assign(promotion, promotionDto);
+        await this.promotionRepository.save(promotion);
+        return this.promotionEntityToDto(promotion);
+    }
+
+    async delete(id: number): Promise<void> {
+        const promotion = await this.promotionRepository.findOneBy({id_promotion: id});
+        if (!promotion) {
+            throw new Error('Promotion non trouvée');
+        }
+        await this.promotionRepository.remove(promotion);
+    }
+
     async getAll(): Promise<Promotion[]> {
         return this.promotionRepository.find();
     }

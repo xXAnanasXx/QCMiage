@@ -22,6 +22,20 @@ export class QuestionService {
         return this.questionEntityToDto(question);
     }
 
+    async create(questionDto: QuestionDto): Promise<Question> {
+        const question = this.questionRepository.create(questionDto);
+        return this.questionRepository.save(question);
+    }
+
+    async update(id: number, questionDto: QuestionDto): Promise<Question> {
+        await this.questionRepository.update(id, questionDto);
+        return this.questionRepository.findOne({where: {id_question: id}});
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.questionRepository.delete(id);
+    }
+
     async getAll(): Promise<Question[]> {
         return this.questionRepository.find();
     }

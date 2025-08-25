@@ -24,6 +24,28 @@ export class SessionQuestionnaireService {
         return this.sessionQuestionnaireEntityToDto(sessionQuestionnaire);
     }
 
+    async create(sessionQuestionnaireDto: SessionQuestionnaireDto): Promise<SessionQuestionnaireDto> {
+        const sessionQuestionnaire = this.sessionQuestionnaireRepository.create(sessionQuestionnaireDto);
+        return this.sessionQuestionnaireRepository.save(sessionQuestionnaire);
+    }
+
+    async update(id: number, sessionQuestionnaireDto: SessionQuestionnaireDto): Promise<SessionQuestionnaireDto> {
+        const sessionQuestionnaire = await this.sessionQuestionnaireRepository.findOne({where: {id_sessionquestionnaire: id}});
+        if (!sessionQuestionnaire) {
+            throw new Error('Session questionnaire non trouvée');
+        }
+        Object.assign(sessionQuestionnaire, sessionQuestionnaireDto);
+        return this.sessionQuestionnaireRepository.save(sessionQuestionnaire);
+    }
+
+    async delete(id: number): Promise<void> {
+        const sessionQuestionnaire = await this.sessionQuestionnaireRepository.findOne({where: {id_sessionquestionnaire: id}});
+        if (!sessionQuestionnaire) {
+            throw new Error('Session questionnaire non trouvée');
+        }
+        await this.sessionQuestionnaireRepository.remove(sessionQuestionnaire);
+    }
+
     async getAll(): Promise<SessionQuestionnaire[]> {
         return this.sessionQuestionnaireRepository.find();
     }

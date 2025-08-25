@@ -19,13 +19,29 @@ export class UtilisateurService {
         if (!utilisateur) {
             throw new Error('Utilisateur non trouvé');
         }
-        return {
-            id_utilisateur: utilisateur.id_utilisateur,
-            nom: utilisateur.nom,
-            prenom: utilisateur.prenom,
-            email: utilisateur.email,
-            role: utilisateur.role,
-        };
+        return this.utilisateurEntityToDto(utilisateur);
+    }
+
+    async create(utilisateurDto: UtilisateurDto): Promise<Utilisateur> {
+        const utilisateur = this.utilisateurRepository.create(utilisateurDto);
+        return this.utilisateurRepository.save(utilisateur);
+    }
+
+    async update(id: number, utilisateurDto: UtilisateurDto): Promise<Utilisateur> {
+        const utilisateur = await this.utilisateurRepository.findOne({where: {id_utilisateur: id}});
+        if (!utilisateur) {
+            throw new Error('Utilisateur non trouvé');
+        }
+        Object.assign(utilisateur, utilisateurDto);
+        return this.utilisateurRepository.save(utilisateur);
+    }
+
+    async delete(id: number): Promise<void> {
+        const utilisateur = await this.utilisateurRepository.findOne({where: {id_utilisateur: id}});
+        if (!utilisateur) {
+            throw new Error('Utilisateur non trouvé');
+        }
+        await this.utilisateurRepository.remove(utilisateur);
     }
 
     async getAll(): Promise<UtilisateurDto[]> {
@@ -39,6 +55,7 @@ export class UtilisateurService {
         }
         return {
             id_utilisateur: utilisateur.id_utilisateur,
+            mdp: utilisateur.mdp,
             nom: utilisateur.nom,
             prenom: utilisateur.prenom,
             email: utilisateur.email,

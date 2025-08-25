@@ -24,6 +24,28 @@ export class ChoixQuestionService {
         };
     }
 
+    async create(choixQuestionDto: ChoixQuestionDto): Promise<ChoixQuestion> {
+        const choixQuestion = this.choixQuestionRepository.create(choixQuestionDto);
+        return this.choixQuestionRepository.save(choixQuestion);
+    }
+
+    async update(id: number, choixQuestionDto: ChoixQuestionDto): Promise<ChoixQuestion> {
+        const choixQuestion = await this.choixQuestionRepository.findOne({where: {id_choixquestion: id}});
+        if (!choixQuestion) {
+            throw new Error('ChoixQuestion non trouvée');
+        }
+        Object.assign(choixQuestion, choixQuestionDto);
+        return this.choixQuestionRepository.save(choixQuestion);
+    }
+
+    async delete(id: number): Promise<void> {
+        const choixQuestion = await this.choixQuestionRepository.findOne({where: {id_choixquestion: id}});
+        if (!choixQuestion) {
+            throw new Error('ChoixQuestion non trouvée');
+        }
+        await this.choixQuestionRepository.remove(choixQuestion);
+    }
+
     async getAll(): Promise<ChoixQuestion[]> {
         return this.choixQuestionRepository.find();
     }
