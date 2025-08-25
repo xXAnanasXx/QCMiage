@@ -22,6 +22,24 @@ export class QuestionnaireService {
         return this.questionnaireEntityToDto(questionnaire);
     }
 
+    async create(questionnaireDto: QuestionnaireDto): Promise<Questionnaire> {
+        const questionnaire = this.questionnaireRepository.create(questionnaireDto);
+        return this.questionnaireRepository.save(questionnaire);
+    }
+
+    async update(id: number, questionnaireDto: QuestionnaireDto): Promise<Questionnaire> {
+        const questionnaire = await this.questionnaireRepository.findOneBy({id_questionnaire: id});
+        if (!questionnaire) {
+            throw new Error('Questionnaire non trouvé');
+        }
+        Object.assign(questionnaire, questionnaireDto);
+        return this.questionnaireRepository.save(questionnaire);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.questionnaireRepository.delete(id);
+    }
+
     async getAll(): Promise<Questionnaire[]> {
         return this.questionnaireRepository.find();
     }

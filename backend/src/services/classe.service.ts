@@ -22,6 +22,30 @@ export class ClasseService {
         return this.classeEntityToDto(classe);
     }
 
+    async create(classeDto: ClasseDto): Promise<ClasseDto> {
+        const classe = this.classeRepository.create(classeDto);
+        await this.classeRepository.save(classe);
+        return this.classeEntityToDto(classe);
+    }
+
+    async update(id: number, classeDto: ClasseDto): Promise<ClasseDto> {
+        const classe = await this.classeRepository.findOneBy({id_classe: id});
+        if (!classe) {
+            throw new Error('Classe non trouvée');
+        }
+        Object.assign(classe, classeDto);
+        await this.classeRepository.save(classe);
+        return this.classeEntityToDto(classe);
+    }
+
+    async delete(id: number): Promise<void> {
+        const classe = await this.classeRepository.findOneBy({id_classe: id});
+        if (!classe) {
+            throw new Error('Classe non trouvée');
+        }
+        await this.classeRepository.remove(classe);
+    }
+
     async getAll(): Promise<Classe[]> {
         return this.classeRepository.find();
     }

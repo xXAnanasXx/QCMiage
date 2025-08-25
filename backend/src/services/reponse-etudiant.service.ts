@@ -24,6 +24,24 @@ export class ReponseEtudiantService {
         return this.reponseEtudiantEntityToDto(reponseEtudiant);
     }
 
+    async create(reponseEtudiantDto: ReponseEtudiantDto): Promise<ReponseEtudiantDto> {
+        const reponseEtudiant = this.reponseEtudiantRepository.create(reponseEtudiantDto);
+        return this.reponseEtudiantRepository.save(reponseEtudiant);
+    }
+
+    async update(id: number, reponseEtudiantDto: ReponseEtudiantDto): Promise<ReponseEtudiantDto> {
+        const reponseEtudiant = await this.reponseEtudiantRepository.findOneBy({id_reponseetudiant: id});
+        if (!reponseEtudiant) {
+            throw new Error('Réponse étudiant non trouvée');
+        }
+        Object.assign(reponseEtudiant, reponseEtudiantDto);
+        return this.reponseEtudiantRepository.save(reponseEtudiant);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.reponseEtudiantRepository.delete(id);
+    }
+
     async getAll(): Promise<ReponseEtudiant[]> {
         return this.reponseEtudiantRepository.find();
     }

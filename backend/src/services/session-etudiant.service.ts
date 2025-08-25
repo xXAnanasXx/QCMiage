@@ -24,6 +24,28 @@ export class SessionEtudiantService {
         return this.sessionEtudiantEntityToDto(sessionEtudiant);
     }
 
+    async create(sessionEtudiantDto: SessionEtudiantDto): Promise<SessionEtudiantDto> {
+        const sessionEtudiant = this.sessionEtudiantRepository.create(sessionEtudiantDto);
+        return this.sessionEtudiantRepository.save(sessionEtudiant);
+    }
+
+    async update(id: number, sessionEtudiantDto: SessionEtudiantDto): Promise<SessionEtudiantDto> {
+        const sessionEtudiant = await this.sessionEtudiantRepository.findOne({where: {id_sessionetudiant: id}});
+        if (!sessionEtudiant) {
+            throw new Error('Session étudiant non trouvée');
+        }
+        Object.assign(sessionEtudiant, sessionEtudiantDto);
+        return this.sessionEtudiantRepository.save(sessionEtudiant);
+    }
+
+    async delete(id: number): Promise<void> {
+        const sessionEtudiant = await this.sessionEtudiantRepository.findOne({where: {id_sessionetudiant: id}});
+        if (!sessionEtudiant) {
+            throw new Error('Session étudiant non trouvée');
+        }
+        await this.sessionEtudiantRepository.remove(sessionEtudiant);
+    }
+
     async getAll(): Promise<SessionEtudiant[]> {
         return this.sessionEtudiantRepository.find();
     }
