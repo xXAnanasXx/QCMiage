@@ -1,0 +1,45 @@
+<div class="qcm-container">
+  <h1>QCM Générique</h1>
+
+  <form (ngSubmit)="submit()">
+    <div *ngFor="let q of questions" class="question-block">
+      <p class="question">{{ q.question }}</p>
+
+
+        <div *ngIf="q.type === 'single'">
+        <label *ngFor="let opt of q.options">
+            <input 
+            type="radio" 
+            name="{{q.question}}" 
+            [(ngModel)]="q.answer" 
+            [value]="opt" 
+            required>
+            {{ opt }}
+        </label>
+        </div>
+
+  
+        <div *ngIf="q.type === 'multiple'">
+        <label *ngFor="let opt of q.options">
+            <input 
+            type="checkbox" 
+            (change)="toggleOption(q, opt)">
+            {{ opt }}
+        </label>
+        </div>
+
+        <div *ngIf="q.type === 'text'">
+        <textarea 
+            [(ngModel)]="q.answer" 
+            name="{{q.question}}" 
+            placeholder="Votre réponse ici..." 
+            required>
+        </textarea>
+        </div>
+
+    </div>
+    <div class="save-container">
+    <button class="save-btn" (click)="saveAndGoBack()">Sauvegarder</button>
+    </div>
+  </form>
+</div>

@@ -156,4 +156,5 @@ export class CreateGroupComponent {
 
     this.router.navigate(['/']);
   }
+
 }
