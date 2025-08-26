@@ -29,7 +29,7 @@
 
       <ul>
         <li *ngFor="let eleve of group.classe.eleves ? group.classe.eleves : []">
-          {{ eleve.nom }}
+          {{ eleve.prenom + ' ' + eleve.nom }}
           <button (click)="removeFromGroup(group.classe, eleve)">Supprimer</button>
         </li>
       </ul>

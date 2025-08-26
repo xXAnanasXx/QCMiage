@@ -47,7 +47,7 @@ export class ChoixQuestionService {
     }
 
     async getAll(): Promise<ChoixQuestion[]> {
-        return this.choixQuestionRepository.find();
+        return this.choixQuestionRepository.find({relations: ['id_question']});
     }
 
     choixQuestionEntityToDto(choixQuestion: ChoixQuestion | null): ChoixQuestionDto {

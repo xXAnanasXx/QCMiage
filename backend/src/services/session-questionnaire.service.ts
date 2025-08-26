@@ -47,7 +47,7 @@ export class SessionQuestionnaireService {
     }
 
     async getAll(): Promise<SessionQuestionnaire[]> {
-        return this.sessionQuestionnaireRepository.find();
+        return this.sessionQuestionnaireRepository.find({relations: ['id_administrateur']});
     }
 
     sessionQuestionnaireEntityToDto(sessionQuestionnaire: SessionQuestionnaire): SessionQuestionnaireDto {

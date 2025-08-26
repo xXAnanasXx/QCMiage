@@ -47,7 +47,7 @@ export class PromotionService {
     }
 
     async getAll(): Promise<Promotion[]> {
-        return this.promotionRepository.find();
+        return this.promotionRepository.find({ relations: ['classes'] });
     }
 
     promotionEntityToDto(promotion: Promotion | null): PromotionDto {

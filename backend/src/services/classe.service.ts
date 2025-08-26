@@ -47,7 +47,7 @@ export class ClasseService {
     }
 
     async getAll(): Promise<Classe[]> {
-        return this.classeRepository.find();
+        return this.classeRepository.find({relations: ['id_promotion', 'eleves']});
     }
 
     classeEntityToDto(classe: Classe | null): ClasseDto {

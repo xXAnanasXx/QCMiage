@@ -44,9 +44,8 @@ export class UtilisateurService {
         await this.utilisateurRepository.remove(utilisateur);
     }
 
-    async getAll(): Promise<UtilisateurDto[]> {
-        const utilisateurs = await this.utilisateurRepository.find();
-        return this.utilisateurListEntityToDto(utilisateurs);
+    async getAll(): Promise<Utilisateur[]> {
+        return  this.utilisateurRepository.find();
     }
 
     utilisateurEntityToDto(utilisateur: Utilisateur | null): UtilisateurDto {

@@ -37,7 +37,7 @@ export class QuestionService {
     }
 
     async getAll(): Promise<Question[]> {
-        return this.questionRepository.find();
+        return this.questionRepository.find({relations: ['choixquestions', 'id_questionnaire']});
     }
 
     questionEntityToDto(question: Question): QuestionDto {

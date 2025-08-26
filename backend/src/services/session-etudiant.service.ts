@@ -47,7 +47,7 @@ export class SessionEtudiantService {
     }
 
     async getAll(): Promise<SessionEtudiant[]> {
-        return this.sessionEtudiantRepository.find();
+        return this.sessionEtudiantRepository.find({relations: ['id_etudiant', 'id_sessionquestionnaire']});
     }
 
     sessionEtudiantEntityToDto(sessionEtudiant: SessionEtudiant | null): SessionEtudiantDto {

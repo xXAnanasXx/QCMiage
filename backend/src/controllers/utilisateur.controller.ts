@@ -8,7 +8,7 @@ export class UtilisateurController {
 
     @Get('all')
     async getAll(): Promise<UtilisateurDto[]> {
-        return this.utilisateurService.getAll();
+        return this.utilisateurService.utilisateurListEntityToDto(await this.utilisateurService.getAll());
     }
 
     @Get(':id')
