@@ -30,4 +30,14 @@ export class ClasseController {
     async delete(@Param('id') id: number): Promise<void> {
         return this.classeService.delete(id);
     }
+
+    @Post(':classId/eleve/:studentId')
+    async addStudentToClass(@Param('classId') classId: number, @Param('studentId') studentId: number): Promise<ClasseDto> {
+        return this.classeService.addStudentToClass(classId, studentId);
+    }
+
+    @Delete(':classId/eleve/:studentId')
+    async removeStudentFromClass(@Param('classId') classId: number, @Param('studentId') studentId: number): Promise<ClasseDto> {
+        return this.classeService.removeStudentFromClass(classId, studentId);
+    }
 }

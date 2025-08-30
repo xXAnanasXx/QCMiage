@@ -50,6 +50,22 @@ export class ClasseService {
         return this.classeRepository.find({relations: ['id_promotion', 'eleves']});
     }
 
+    addStudentToClass(classId: number, studentId: number): Promise<ClasseDto> {
+        this.classeRepository.createQueryBuilder()
+            .relation(Classe, 'eleves')
+            .of(classId)
+            .add(studentId);
+        return this.findOne(classId);
+    }
+
+    async removeStudentFromClass(classId: number, studentId: number): Promise<ClasseDto> {
+        await this.classeRepository.createQueryBuilder()
+            .relation(Classe, 'eleves')
+            .of(classId)
+            .remove(studentId);
+        return this.findOne(classId);
+    }
+
     classeEntityToDto(classe: Classe | null): ClasseDto {
         if (!classe) {
             return null;
