@@ -22,9 +22,19 @@ export class UtilisateurService {
         return this.utilisateurEntityToDto(utilisateur);
     }
 
-    async create(utilisateurDto: UtilisateurDto): Promise<Utilisateur> {
+    async findByEmail(email: string): Promise<UtilisateurDto> {
+        const utilisateur = await this.utilisateurRepository.findOne({
+            where: {email: email},
+        });
+        if (!utilisateur) {
+            throw new Error('Utilisateur non trouvé');
+        }
+        return this.utilisateurEntityToDto(utilisateur);
+    }
+
+    async create(utilisateurDto: UtilisateurDto): Promise<UtilisateurDto> {
         const utilisateur = this.utilisateurRepository.create(utilisateurDto);
-        return this.utilisateurRepository.save(utilisateur);
+        return this.utilisateurEntityToDto(await this.utilisateurRepository.save(utilisateur));
     }
 
     async update(id: number, utilisateurDto: UtilisateurDto): Promise<Utilisateur> {

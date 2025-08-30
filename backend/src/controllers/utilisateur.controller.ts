@@ -16,10 +16,14 @@ export class UtilisateurController {
         return this.utilisateurService.findOne(id);
     }
 
+    @Get('email/:email')
+    async findByEmail(@Param('email') email: string): Promise<UtilisateurDto> {
+        return this.utilisateurService.findByEmail(email);
+    }
+
     @Post()
     async create(@Body() utilisateurDto: UtilisateurDto): Promise<UtilisateurDto> {
-        const utilisateur = await this.utilisateurService.create(utilisateurDto);
-        return this.utilisateurService.utilisateurEntityToDto(utilisateur);
+        return await this.utilisateurService.create(utilisateurDto);
     }
 
     @Put(':id')

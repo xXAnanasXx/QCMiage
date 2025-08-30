@@ -93,7 +93,7 @@ export class CreateGroupComponent {
     group.errorMessage = '';
   }
 
-  removeFromGroup(classe: Classe, student: Utilisateur): void {
+  removeFromGroup(classe: Classe, student: Utilisateur): void {//TODO don't remove student from class
     this.classeService.removeStudentFromClass(classe.id_classe, student.id_utilisateur).subscribe({
       next: (updatedClasse) => {
         const index = classe.eleves?.indexOf(student);
