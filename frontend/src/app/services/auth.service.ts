@@ -10,7 +10,20 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
-    return this.http.post<{ access_token: string }>(`${this.apiUrl}/auth/login`, { email, password });
+    return this.http.post<{ access_token: string, utilisateur: Object}>(`${this.apiUrl}/auth/login`, { email, password });
+  }
+
+  saveUser(utilisateur: any) {
+    localStorage.setItem('utilisateur', JSON.stringify(utilisateur));
+  }
+
+  getUser() {
+    const utilisateur = localStorage.getItem('utilisateur');
+    return utilisateur ? JSON.parse(utilisateur) : null;
+  }
+
+  register(nom: string, prenom: string, email: string, password: string) {
+    return this.http.post(`${this.apiUrl}/auth/register`, { nom, prenom, email, password });
   }
 
   saveToken(token: string) {
@@ -27,6 +40,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    localStorage.removeItem('utilisateur');
+    this.router.navigate(['/auth']);
   }
 }

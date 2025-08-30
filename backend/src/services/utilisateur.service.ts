@@ -27,12 +27,15 @@ export class UtilisateurService {
             where: {email: email},
         });
         if (!utilisateur) {
-            throw new Error('Utilisateur non trouvé');
+            return null;
         }
         return this.utilisateurEntityToDto(utilisateur);
     }
 
     async create(utilisateurDto: UtilisateurDto): Promise<UtilisateurDto> {
+        if (await this.findByEmail(utilisateurDto.email)) {
+            throw new Error('Email déjà utilisé');
+        }
         const utilisateur = this.utilisateurRepository.create(utilisateurDto);
         return this.utilisateurEntityToDto(await this.utilisateurRepository.save(utilisateur));
     }

@@ -1,9 +1,12 @@
 <body>
 
   <div class="profile">
-    <img src="assets/photo_etudiant.png" alt="Photo de profil">
-    <h2>Nom Profil</h2>
-    <p>Description courte</p>
+    <img *ngIf="profile().role === 'etudiant'" src="assets/photo_etudiant.png" alt="Photo de profil étudiant">
+    <img *ngIf="profile().role === 'admin'" src="assets/photo_etudiant.png" alt="Photo de profil admin">
+    <--A remplacer par une photo d'admin-->
+    <h2>{{profile().nom + ' ' + profile().prenom}}</h2>
+    <p>{{profile().email}}</p>
+    <button (click)="logout()">Se déconnecter</button>
   </div>
 
 

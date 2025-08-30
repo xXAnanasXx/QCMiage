@@ -27,18 +27,6 @@ export class AuthComponent {
 
   async ngOnInit() {
     this.formData = { nom: '', prenom: '', email: '', password: '' };
-    this.loadProfile();
-  }
-
-  loadProfile() {
-    this.utilisateurService.getUtilisateur(1).subscribe({
-      next: response => {
-        console.log('Utilisateur récupéré:', response);
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération de l\'utilisateur:', error);
-      }
-    });
   }
 
   toggleForm() {
@@ -61,6 +49,7 @@ export class AuthComponent {
       next: response => {
         console.log('Login successful:', response);
         this.authService.saveToken(response.access_token);
+        this.authService.saveUser(response.utilisateur);
         this.router.navigate(['/']);
       },
       error: error => {
@@ -75,7 +64,7 @@ export class AuthComponent {
     const email = this.formData.email;
     const password = this.formData.password;
 
-    this.utilisateurService.createUtilisateur({id_utilisateur: 0, nom: nom, prenom: prenom, email: email, mdp: password, role: 'etudiant'}).subscribe({
+    this.authService.register(nom, prenom, email, password).subscribe({
       next: response => {
         console.log('Registration successful:', response);
         this.Connect();

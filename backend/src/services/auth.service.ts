@@ -13,8 +13,7 @@ export class AuthService {
 
     async validateUser(email: string, pass: string): Promise<any> {
         const utilisateur : UtilisateurDto = await this.utilisateurService.findByEmail(email);
-        //if (utilisateur && await bcrypt.compare(pass, utilisateur.mdp)) {
-        if (utilisateur && pass === utilisateur.mdp) {//TODO remettre bcrypt pour les mdp hashés
+        if (utilisateur && await bcrypt.compare(pass, utilisateur.mdp)) {
             const { mdp, ...result } = utilisateur;
             return result;
         }
@@ -25,6 +24,18 @@ export class AuthService {
         const payload = { sub: utilisateur.id_utilisateur, email: utilisateur.email, role: utilisateur.role };
         return {
             access_token: this.jwtService.sign(payload),
+            utilisateur: {
+                id_utilisateur: utilisateur.id_utilisateur,
+                nom: utilisateur.nom,
+                prenom: utilisateur.prenom,
+                email: utilisateur.email,
+                role: utilisateur.role
+            }
         };
+    }
+
+    async register(utilisateurDto: UtilisateurDto): Promise<UtilisateurDto> {
+        utilisateurDto.mdp = await bcrypt.hash(utilisateurDto.mdp, 10);
+        return this.utilisateurService.create(utilisateurDto);
     }
 }
